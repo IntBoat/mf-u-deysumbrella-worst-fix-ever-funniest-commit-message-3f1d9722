@@ -1,20 +1,24 @@
 #!/usr/bin/env python3
-"""Worst Fix Ever: Funniest Commit Message (make.fun).
+"""Worst Fix Ever: Funniest Commit Message — a make.fun one-line entry.
 
-Writes the entry -- one commit message for a bug fix that made everything worse --
-to /output/entry.txt, where the sealed scorer reads it.
+The program writes the entry text to /output/entry.txt, where the
+competition's sealed scorer reads it.
 """
 
-import os
+from pathlib import Path
 
-TEXT = 'fix: silence the alarm by deleting the monitoring'
+ENTRY = "fix: remove the bug by deleting the feature, the tests, and the intern who found it"
+
+OUTPUT = Path("/output/entry.txt")
 
 
-def main():
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(TEXT)
+def write_entry() -> None:
+    """Write the entry text to the output file."""
+    text = ENTRY.strip()
+    assert text, "entry text must not be blank"
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.write_text(text, encoding="utf-8")
 
 
 if __name__ == "__main__":
-    main()
+    write_entry()
